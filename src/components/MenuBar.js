@@ -20,14 +20,14 @@ export default function MenuBar() {
           />
           <Menu.Menu position='right'>
             <Menu.Item
-                name='login'
+                name='Login'
                 active={activeItem === 'login'}
                 onClick={handleItemClick}
                 as={Link}
                 to="/login"
             />
             <Menu.Item
-                name='register'
+                name='Registrarse'
                 active={activeItem === 'register'}
                 onClick={handleItemClick}
                 as={Link}
