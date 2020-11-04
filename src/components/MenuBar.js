@@ -18,7 +18,7 @@ export default function MenuBar() {
             as={Link}
             to="/"
           />
-          <Menu.Menu position='right'>
+          <Menu.Menu position='right' color="teal">
             <Menu.Item
                 name='Login'
                 active={activeItem === 'login'}
