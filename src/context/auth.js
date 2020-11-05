@@ -2,7 +2,7 @@ import React,{ useReducer, createContext } from 'react'
 
 const  AuthContext = createContext({
     user:null,
-    login: (data) => {},
+    login: (userData) => {},
     logout: () => {}
 })
 
