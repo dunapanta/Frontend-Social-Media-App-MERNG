@@ -12,11 +12,22 @@ export default function PostForm(){
 
     const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
-        update(proxy, result){
-            console.log(result)
-            values.body= ""
-        } 
-    })
+        update(proxy, result) {
+          const data = proxy.readQuery({
+            query: FETCH_POSTS_QUERY,
+          });
+          proxy.writeQuery({
+            query: FETCH_POSTS_QUERY,
+            data: {
+              getPosts: [result.data.createPost, ...data.getPosts],
+            },
+          });
+          values.body = "";
+        },
+        // onError(err) { <== also add this so the page doesn't break
+        //   return err;
+        // },
+      });
 
     function createPostCallback(){
         createPost()
@@ -60,6 +71,25 @@ const CREATE_POST_MUTATION = gql`
                 createdAt
             }
             commentCount
+        }
+    }
+`
+
+const FETCH_POSTS_QUERY = gql `
+    {
+        getPosts {
+            id 
+            body 
+            createdAt 
+            username 
+            likeCount
+            likes{
+                username
+            }
+            commentCount
+            comments{
+                id username createdAt body
+            }
         }
     }
 `
