@@ -34,20 +34,30 @@ export default function PostForm(){
     }
 
     return (
-        <Form onSubmit={onSubmit}>
-            <h2>Crear nuevo post:</h2>
-            <Form.Field>
-                <Form.Input
-                    placeholder="Qué estás pensando?"
-                    name="body"
-                    onChange={onChange}
-                    value={values.body}
-                />
-                <Button type="submit" color="teal">
-                    Crear
-                </Button>
-            </Form.Field>
-        </Form>
+        <>
+            <Form onSubmit={onSubmit}>
+                <h2>Crear nuevo post:</h2>
+                <Form.Field>
+                    <Form.Input
+                        placeholder="Qué estás pensando?"
+                        name="body"
+                        onChange={onChange}
+                        value={values.body}
+                        error={error ? true : false}
+                    />
+                    <Button type="submit" color="teal">
+                        Crear
+                    </Button>
+                </Form.Field>
+            </Form>
+            {error && (
+                <div className="ui error message" styele={{ marginBotton: 20 }}>
+                    <ul className="list">
+                        <li>{error.graphQLErrors[0].message}</li>
+                    </ul>
+                </div>
+            )}
+        </>
     )
 }
 
