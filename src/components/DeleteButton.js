@@ -8,27 +8,25 @@ export default function DeleteButton({ postId, callback }) {
     const [confirmOpen, setConfirmOpen] = useState(false)
 
     const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-        variables:{
-            postID
-        },
-        update(proxy, result){
-            setConfirmOpen(false)
-            let data = proxy.readQuery({
-                query: FETCH_POSTS_QUERY
-            })
+        refetchQueries: [{ query: FETCH_POSTS_QUERY }],
 
-            const resPosts = data.getPosts.filter( (p) => p._id !== postId)
+        update(proxy) {
+            setConfirmOpen(false);
 
-            proxy.writeQuery({
-                query: FETCH_POSTS_QUERY,
-                data: { getPosts:[...resPosts]}
-              })
-            if(callback) callback()
+            //  const data = proxy.readQuery({
+            //      query: FETCH_POSTS_QUERY,
+            //  });
+            //  data.getPosts = data.getPosts.filter((p) => p.id !== postId);
+            //  proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+
+            if (callback) callback();
         },
+
         variables: {
-            postId
-        }
-    })
+            postId,
+        },
+    });
+    
     return(
         <>
             <Button 
