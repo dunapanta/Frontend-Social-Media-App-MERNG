@@ -5,7 +5,7 @@ import { setContext } from 'apollo-link-context'
 
 // apunta al endpoit del server
 const httpLink = createHttpLink({
-    uri: 'http://localhost:5000/'
+    uri: 'https://damp-stream-48987.herokuapp.com/'
 });
 
 //middleware to add token in header for send a new post
